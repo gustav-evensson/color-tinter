@@ -1,1 +1,1 @@
-![Color Tinter](website/public/CT.png)
+![Color Tinter](website/src/assets/color-tinter.png)
