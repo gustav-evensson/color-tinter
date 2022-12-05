@@ -113,18 +113,18 @@ export default {
 
 		function generateLightness() {
 			let lightnessArray = [];
-			const selectedColor = parseToHsla(props.color);
+			const selectedColor = parseToHsla(props.color);	//This returns an array so we easily can modify the values. [hue, saturation, lightnes, alpha]
 			let i = 1;
 			while (i < 10) {
 				let newColor = selectedColor;
 				newColor[2] = i / 10;
-				lightnessArray.push(hsla(newColor[0], newColor[1], newColor[2], newColor[3]));
+				lightnessArray.push(hsla(newColor[0], newColor[1], newColor[2], newColor[3])); //Then we push the color put back to gether in hsla format.
 				i++;
 			}
 			return lightnessArray;
 		}
 
-		function generateSaturation() {
+		function generateSaturation() { 
 			let saturationArray = [];
 			const selectedColor = parseToHsla(props.color);
 			let i = 1;
@@ -134,7 +134,7 @@ export default {
 				saturationArray.push(hsla(newColor[0], newColor[1], newColor[2], newColor[3]));
 				i++;
 			}
-			return saturationArray.reverse();
+			return saturationArray.reverse(); // Reversing to get the displayed color spectrum going the other way.
 		}
 
 		function generateDiagonal() {
@@ -143,7 +143,7 @@ export default {
 			let i = 1;
 			while (i < 10) {
 				let newColor = selectedColor;
-				newColor[1] = i / 10;
+				newColor[1] = i / 10; //Here we modify 2 of the values (saturation and lightness) to get the diagonal spectrum.
 				newColor[2] = i / 10;
 				diagonalArray.push(hsla(newColor[0], newColor[1], newColor[2], newColor[3]));
 				i++;
@@ -164,17 +164,8 @@ export default {
 			return lightnessArray.reverse();
 		}
 
-		function showMore(id) {
-			const thisSection = document.querySelector('#' + id);
-			if (thisSection.classList.contains('showMore')) {
-				thisSection.classList.remove('showMore');
-			} else {
-				thisSection.classList.add('showMore');
-			}
-		}
-
-		function changeLanguage(language) {
-			store.commit('setLanguage', language);
+		function changeLanguage(language) { 		// These two functions are used to set the format of the output text. 
+			store.commit('setLanguage', language);  // We use Vuex to get the same settings over all components
 			data.language = language;
 		}
 		function changeFormat(format) {
@@ -182,11 +173,11 @@ export default {
 			data.colorFormat = format;
 		}
 
-		function copyText() {
+		function copyText() { //This is the function for the copy button to get the output text to the users clipboard.
 			let text = '';
-			const elements = document.querySelector('.copyText').childNodes;
-			elements.forEach((element) => {
-				if (element.nodeName == 'P') {
+			const elements = document.querySelector('.copyText').childNodes; 
+			elements.forEach((element) => {  						// If we would copy the entire textContent of the parent element
+				if (element.nodeName == 'P') {						// we get som unwanted linebreaks and spaces so this function solves this issue.
 					text += element.textContent + '\n';
 				} else if (element.nodeName == 'DIV') {
 					element.childNodes.forEach((subElement) => {
@@ -196,18 +187,18 @@ export default {
 					});
 				}
 			});
-			navigator.clipboard.writeText(text);
-			data.copyConfirm = true;
+			navigator.clipboard.writeText(text); 
+			data.copyConfirm = true;		// This part is to show the confirmation card that pops up when the text is copied
 			setTimeout(() => {
-				data.copyConfirm = false
+				data.copyConfirm = false    // Then after 1s we hide the card again
 			}, 1000)
 		}
 
-		onBeforeMount(() => {
-			data.language = store.state.language;
+		onBeforeMount(() => {								
+			data.language = store.state.language;		//We get the language and color format from the store before we mount
 			data.colorFormat = store.state.colorFormat;
-			if (props.spectrum == 'saturation') {
-				data.colorArray = generateSaturation();
+			if (props.spectrum == 'saturation') {			// Because we are working with components that are going to output different color spectrums
+				data.colorArray = generateSaturation();		// we need to know wich function to run depending on what the spectrum prop is set to.
 			} else if (props.spectrum == 'lightness') {
 				data.colorArray = generateLightness();
 			} else if (props.spectrum == 'diagonal') {
@@ -219,10 +210,10 @@ export default {
 			}
 		});
 
-		watch(
-			() => store.state.language,
+		watch(								// These watchers are used for when we update the language or color format
+			() => store.state.language,		// when one component updates the language we want to simultaneously update the other components
 			(getLanguage) => {
-				data.language = getLanguage;
+				data.language = getLanguage; 
 			}
 		);
 		watch(
@@ -239,11 +230,8 @@ export default {
 			toHex,
 			toRgba,
 			parseToHsla,
-			showMore,
 			copyText,
 		};
 	},
 };
 </script>
-
-<style lang="scss" scoped></style>

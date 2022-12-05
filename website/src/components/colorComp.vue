@@ -17,15 +17,15 @@ import '../css/App.css'
 export default {
 	props: ['color'],
 	setup(props) {
-		const displayText = toHex(props.color);
-		const displayTextColor = readableColor(props.color);
+		const displayText = toHex(props.color); 
+		const displayTextColor = readableColor(props.color); // This is a function from the color2k library that return black or white depending on the inputed colors contrast to eather of them.
 		const data = reactive({
 			copied: false
 		})
 
 		function copyColor(){
 			navigator.clipboard.writeText(displayText);
-			data.copied = true
+			data.copied = true // This shows a popup text when the color is copied and eventually hides it after 1s
 			setTimeout(() => {
 				data.copied = false
 			}, 1000);

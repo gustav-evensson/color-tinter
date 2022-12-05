@@ -5,7 +5,6 @@ export default createStore({
     state: {
         language: 'css',
         colorFormat: 'HEX',
-        isShowMore: false
     },
     mutations: {
         setLanguage(state, language){
@@ -13,9 +12,6 @@ export default createStore({
         },
         setColorFormat(state, format){
             state.colorFormat = format
-        },
-        setShowMore(state, value){
-            state.isshowMore = value
         }
     },
     actions: {

@@ -134,8 +134,8 @@ export default {
 			showMenu: false,
 		});
 
-		function generateSpectrum() {
-			try {
+		function generateSpectrum() {				// This function is necessary bacause if we type a color in the text input field we will get ann error everytime the we try to create a spectrum out of a value that is invalid 
+			try {									// for exaple, if i start to enter the color #FF0000 i will at some point have a value of #FF wich is invalid. Therefore we created a button so that when we have entere our color only then we render the spectrum.
 				parseToHsla(data.inputColor);
 				data.color = data.inputColor;
 				localStorage.setItem('savedColor', data.color);
@@ -144,7 +144,7 @@ export default {
 			}
 		}
 
-		onBeforeMount(() => {
+		onBeforeMount(() => {	// Before we mount we check the localstorage if we have a saved color, if so we asign that value to our color variables
 			const savedColor = localStorage.getItem('savedColor');
 			if (savedColor) {
 				data.color = savedColor;
