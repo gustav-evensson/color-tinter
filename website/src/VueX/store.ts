@@ -1,7 +1,26 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
-const useStore = createStore({
+// interface stateTypes {savedColor: string,showStart: boolean}
 
+const store = createStore({
+    state: {
+        savedColor: "",
+        colorFormat: "Hex",
+        textFormat: "CSS"
+    },
+    mutations: {
+        saveColor(state, color: string){
+            state.savedColor = color
+        },
+        setColorFormat(state, format: string){
+            state.colorFormat = format
+        },
+        setTextFormat(state, format: string){
+            state.textFormat = format
+        }
+    },
+    plugins: [createPersistedState()]
 })
 
-export { useStore }
+export { store }

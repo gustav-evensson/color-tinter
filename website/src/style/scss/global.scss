@@ -1,69 +1,31 @@
+// Imports
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@300;400;500;600&display=swap');
+
+@import 'base.css';
+@import 'reset.css';
+
+body {
+    background-color: var(--primary-color);
+    font-family: 'Montserrat', sans-serif;
+}
+
+#app{
+    padding: 0 5%;
+}
+
 button{
-    transition: opacity 200ms;
+    cursor: pointer;
     border: none;
     border-radius: 12px;
 }
 
-button:hover{
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.ct-border-item{
-    border: solid 2px var(--primary-border);
-    border-radius: 12px;
+.inputItem{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
+    --input-item-height: 64px;
+    border-radius: 12px;
+    background-color: var(--primary-color);
     transition: border 300ms;
-    --border-item-height: 60px;
-}
-.ct-border-item:hover{
-    border-color: var(--hover-color);
-}
-.ct-border-item:focus, .ct-border-item:focus-within{
-    border-color: var(--primary-color);
-}
-
-.colorPicker input[type=text]{
-    height: var(--border-item-height);
-    background-color: transparent;
-    border: none;
-    padding: 20px;
-    outline: none;
-}
-
-.colorInput{
-    width: var(--border-item-height);
-    height: var(--border-item-height);
-    display: grid;
-    grid-template-areas: "stack";
-    place-items: center;
-    position: relative;
-}
-.colorInput::after{
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
-    width: 2px;
-    background-color: var(--primary-border);
-    border-radius: 1px;
-}
-.colorInput input{
-    grid-area: stack;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-.colorInput svg{
-    grid-area: stack;
-    z-index: 2;
-    width: 32px;
-    height: 32px;
-    pointer-events: none;
 }

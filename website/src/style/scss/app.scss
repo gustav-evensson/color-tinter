@@ -1,69 +1,336 @@
 // Imports
 
-@import 'base.css';
-@import 'reset.css';
-@import 'global.css';
-
-// Body styling
-
-body {
-    background-color: var(--primary-bg-color);
-    font-family: 'Montserrat', sans-serif;
-}
+@import "base.css";
+@import "reset.css";
+@import "global.css";
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@300;400;500;600&display=swap");
 
 // Navbar styling
 
+.currentColor {
+    width: 100%;
+    height: 100px;
+    top: 50px;
+    left: 0;
+    position: fixed;
+    z-index: 4;
+    div {
+        width: 100%;
+        height: 70px;
+    }
+    .topPart {
+        position: absolute;
+        top: -40px;
+        height: 70%;
+        left: 0;
+        filter: blur(15px);
+    }
+    .currentColorBg {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        background-color: var(--secondary-color);
+        opacity: 1;
+        height: 100%;
+    }
+}
 nav {
-    background-color: var(--secondary-bg-color);
-    border-bottom: solid 2px var(--primary-border);
+    background-color: var(--secondary-color);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100px;
+    padding: 0 5%;
+    z-index: 5;
+    opacity: 0.9;
     .navItems {
         max-width: 1800px;
         margin: 0 auto;
         height: 100%;
         padding: 30px 0;
-    
         display: flex;
         justify-content: space-between;
         align-items: center;
         .logo {
             height: 100%;
+            path {
+                fill: var(--primary-text-color);
+            }
         }
-        .supportUs {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 7px;
-            background-color: var(--primary-color);
-            color: var(--primary-bg-color);
-            font-weight: 400;
+        .colorPicker {
+            input[type="text"] {
+                height: var(--input-item-height);
+                background-color: transparent;
+                color: var(--primary-text-color);
+                border: none;
+                padding: 20px;
+                outline: none;
+                font-size: 20px;
+            }
+            .colorInput {
+                width: var(--input-item-height);
+                height: var(--input-item-height);
+                display: grid;
+                grid-template-areas: "stack";
+                place-items: center;
+                position: relative;
+                input {
+                    grid-area: stack;
+                    opacity: 0;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+                }
+                svg {
+                    grid-area: stack;
+                    z-index: 2;
+                    width: 32px;
+                    height: 32px;
+                    pointer-events: none;
+                    .outline {
+                        stroke: var(--secondary-text-color);
+                    }
+                    path:not(.outline) {
+                        fill: var(--secondary-text-color);
+                    }
+                }
+            }
+            .colorInput::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 50%;
+                width: 2px;
+                background-color: var(--secondary-text-color);
+                border-radius: 1px;
+            }
         }
     }
 }
 
-// Startscreen styling 
+// Main styling
 
-.startScreen{
+main {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .startContent{
+    padding-top: 100px;
+    max-width: 1800px;
+    margin: 0 auto;
+    .topBar {
+        width: 100%;
+        padding-block: 60px 40px;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 45px;
-        .generate{
-            font-size: 24px;
-            padding: 10px 0;
-            color: var(--primary-bg-color);
-            background-color: var(--primary-color);
-            width: 250px;
+        justify-content: space-between;
+        .tabs {
+            .text {
+                display: flex;
+                button {
+                    border-radius: 0px;
+                    background-color: transparent;
+                    padding: 10px 0;
+                    font-size: 24px;
+                    color: var(--secondary-text-color);
+                    transition: color 300ms;
+                }
+                .tints {
+                    width: 100px;
+                }
+                .combinations {
+                    width: 210px;
+                }
+                button.active {
+                    color: var(--primary-text-color);
+                }
+                button:hover {
+                    color: var(--primary-text-color);
+                }
+            }
+            .underline {
+                width: 100%;
+                height: 2px;
+                background-color: var(--secondary-color);
+                .indicator {
+                    width: 100px;
+                    height: 2px;
+                    background-color: var(--primary-text-color);
+                    transition: transform 300ms, width 300ms;
+                }
+                .onCombinations {
+                    width: 210px;
+                    transform: translateX(100px);
+                }
+            }
+        }
+        .currentColor {
+            width: 50%;
+            padding: 20px;
+            border-radius: 12px;
+            p {
+                font-size: 24px;
+                font-weight: 400;
+            }
+        }
+        .optionsContainer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            color: var(--primary-text-color);
+            h3 {
+                font-weight: 300;
+            }
+            .inputItem {
+                height: var(--input-item-height);
+                background-color: var(--secondary-color);
+                padding: 20px;
+                width: 200px;
+                color: inherit;
+            }
+            .dropDown {
+                outline: none;
+                position: relative;
+                cursor: pointer;
+                svg {
+                    transition: transform 300ms;
+                    path {
+                        stroke: var(--primary-text-color);
+                    }
+                }
+                .dropDownOptions {
+                    position: absolute;
+                    bottom: 0;
+                    transform: translateY(102%);
+                    width: 100%;
+                    left: 0;
+                    background-color: var(--primary-color);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 300ms, transform 300ms;
+                    button {
+                        outline: none;
+                        width: 100%;
+                        padding: 20px;
+                        background-color: transparent;
+                        color: inherit;
+                        border-radius: 0;
+                        text-align: left;
+                    }
+                    button:hover,
+                    button:focus {
+                        background-color: var(--secondary-color);
+                    }
+                }
+            }
+            .dropDown:hover,
+            .dropDown:focus-within,
+            .dropDown:focus {
+                svg {
+                    transform: rotate(180deg);
+                }
+                .dropDownOptions {
+                    transform: translateY(100%);
+                    opacity: 1;
+                    pointer-events: all;
+                }
+            }
         }
     }
 }
 
+// TintsView Styling
+
+.tintsView {
+    width: 100%;
+
+    // SpectrumView Styling
+    .spectrumView {
+        width: 100%;
+        background-color: var(--secondary-color);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 50px;
+        .titleBar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h1 {
+                color: var(--primary-text-color);
+                font-weight: 400;
+                font-size: 24px;
+            }
+            button {
+                background-color: transparent;
+                color: var(--primary-text-color);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 20px;
+                svg {
+                    transition: transform 300ms;
+                    path {
+                        stroke: var(--primary-text-color);
+                    }
+                }
+            }
+            .showMore {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        .colorsContainer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-radius: 12px;
+            overflow: auto;
+            margin-top: 30px;
+
+            // ColorBlock Styling
+
+            .colorBlock {
+                width: 100%;
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 10px;
+                cursor: pointer;
+                svg {
+                    height: 42px;
+                    width: 42px;
+                }
+                svg,
+                p {
+                    opacity: 0;
+                    transform: translateY(5px);
+                    transition: transform 300ms, opacity 300ms;
+                }
+            }
+            .colorBlock:hover {
+                svg,
+                p {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+        .textContainer {
+            width: 100%;
+            margin-top: 30px;
+            background-color: var(--primary-color);
+            border-radius: 12px;
+            padding: 20px;
+            color: var(--primary-text-color);
+            font-family: "Fira Code", monospace;
+        }
+    }
+}

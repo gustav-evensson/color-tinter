@@ -1,19 +1,45 @@
-@import 'base.css';
-@import 'reset.css';
-@import 'global.css';
-body {
-  background-color: var(--primary-bg-color);
-  font-family: "Montserrat", sans-serif;
+@import "base.css";
+@import "reset.css";
+@import "global.css";
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@300;400;500;600&display=swap");
+.currentColor {
+  width: 100%;
+  height: 100px;
+  top: 50px;
+  left: 0;
+  position: fixed;
+  z-index: 4;
+}
+.currentColor div {
+  width: 100%;
+  height: 70px;
+}
+.currentColor .topPart {
+  position: absolute;
+  top: -40px;
+  height: 70%;
+  left: 0;
+  filter: blur(15px);
+}
+.currentColor .currentColorBg {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background-color: var(--secondary-color);
+  opacity: 1;
+  height: 100%;
 }
 
 nav {
-  background-color: var(--secondary-bg-color);
-  border-bottom: solid 2px var(--primary-border);
+  background-color: var(--secondary-color);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100px;
+  padding: 0 5%;
+  z-index: 5;
+  opacity: 0.9;
 }
 nav .navItems {
   max-width: 1800px;
@@ -27,32 +53,263 @@ nav .navItems {
 nav .navItems .logo {
   height: 100%;
 }
-nav .navItems .supportUs {
-  padding: 10px 20px;
+nav .navItems .logo path {
+  fill: var(--primary-text-color);
+}
+nav .navItems .colorPicker input[type=text] {
+  height: var(--input-item-height);
+  background-color: transparent;
+  color: var(--primary-text-color);
   border: none;
-  border-radius: 7px;
-  background-color: var(--primary-color);
-  color: var(--primary-bg-color);
-  font-weight: 400;
+  padding: 20px;
+  outline: none;
+  font-size: 20px;
+}
+nav .navItems .colorPicker .colorInput {
+  width: var(--input-item-height);
+  height: var(--input-item-height);
+  display: grid;
+  grid-template-areas: "stack";
+  place-items: center;
+  position: relative;
+}
+nav .navItems .colorPicker .colorInput input {
+  grid-area: stack;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+nav .navItems .colorPicker .colorInput svg {
+  grid-area: stack;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+nav .navItems .colorPicker .colorInput svg .outline {
+  stroke: var(--secondary-text-color);
+}
+nav .navItems .colorPicker .colorInput svg path:not(.outline) {
+  fill: var(--secondary-text-color);
+}
+nav .navItems .colorPicker .colorInput::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%;
+  width: 2px;
+  background-color: var(--secondary-text-color);
+  border-radius: 1px;
 }
 
-.startScreen {
+main {
   width: 100%;
-  height: 100vh;
+  padding-top: 100px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+main .topBar {
+  width: 100%;
+  padding-block: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+main .topBar .tabs .text {
+  display: flex;
+}
+main .topBar .tabs .text button {
+  border-radius: 0px;
+  background-color: transparent;
+  padding: 10px 0;
+  font-size: 24px;
+  color: var(--secondary-text-color);
+  transition: color 300ms;
+}
+main .topBar .tabs .text .tints {
+  width: 100px;
+}
+main .topBar .tabs .text .combinations {
+  width: 210px;
+}
+main .topBar .tabs .text button.active {
+  color: var(--primary-text-color);
+}
+main .topBar .tabs .text button:hover {
+  color: var(--primary-text-color);
+}
+main .topBar .tabs .underline {
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary-color);
+}
+main .topBar .tabs .underline .indicator {
+  width: 100px;
+  height: 2px;
+  background-color: var(--primary-text-color);
+  transition: transform 300ms, width 300ms;
+}
+main .topBar .tabs .underline .onCombinations {
+  width: 210px;
+  transform: translateX(100px);
+}
+main .topBar .currentColor {
+  width: 50%;
+  padding: 20px;
+  border-radius: 12px;
+}
+main .topBar .currentColor p {
+  font-size: 24px;
+  font-weight: 400;
+}
+main .topBar .optionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  color: var(--primary-text-color);
+}
+main .topBar .optionsContainer h3 {
+  font-weight: 300;
+}
+main .topBar .optionsContainer .inputItem {
+  height: var(--input-item-height);
+  background-color: var(--secondary-color);
+  padding: 20px;
+  width: 200px;
+  color: inherit;
+}
+main .topBar .optionsContainer .dropDown {
+  outline: none;
+  position: relative;
+  cursor: pointer;
+}
+main .topBar .optionsContainer .dropDown svg {
+  transition: transform 300ms;
+}
+main .topBar .optionsContainer .dropDown svg path {
+  stroke: var(--primary-text-color);
+}
+main .topBar .optionsContainer .dropDown .dropDownOptions {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(102%);
+  width: 100%;
+  left: 0;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms, transform 300ms;
+}
+main .topBar .optionsContainer .dropDown .dropDownOptions button {
+  outline: none;
+  width: 100%;
+  padding: 20px;
+  background-color: transparent;
+  color: inherit;
+  border-radius: 0;
+  text-align: left;
+}
+main .topBar .optionsContainer .dropDown .dropDownOptions button:hover,
+main .topBar .optionsContainer .dropDown .dropDownOptions button:focus {
+  background-color: var(--secondary-color);
+}
+main .topBar .optionsContainer .dropDown:hover svg,
+main .topBar .optionsContainer .dropDown:focus-within svg,
+main .topBar .optionsContainer .dropDown:focus svg {
+  transform: rotate(180deg);
+}
+main .topBar .optionsContainer .dropDown:hover .dropDownOptions,
+main .topBar .optionsContainer .dropDown:focus-within .dropDownOptions,
+main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
+  transform: translateY(100%);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tintsView {
+  width: 100%;
+}
+.tintsView .spectrumView {
+  width: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 50px;
+}
+.tintsView .spectrumView .titleBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tintsView .spectrumView .titleBar h1 {
+  color: var(--primary-text-color);
+  font-weight: 400;
+  font-size: 24px;
+}
+.tintsView .spectrumView .titleBar button {
+  background-color: transparent;
+  color: var(--primary-text-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+.tintsView .spectrumView .titleBar button svg {
+  transition: transform 300ms;
+}
+.tintsView .spectrumView .titleBar button svg path {
+  stroke: var(--primary-text-color);
+}
+.tintsView .spectrumView .titleBar .showMore svg {
+  transform: rotate(180deg);
+}
+.tintsView .spectrumView .colorsContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  overflow: auto;
+  margin-top: 30px;
+}
+.tintsView .spectrumView .colorsContainer .colorBlock {
+  width: 100%;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.startScreen .startContent {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 45px;
+  gap: 10px;
+  cursor: pointer;
 }
-.startScreen .startContent .generate {
-  font-size: 24px;
-  padding: 10px 0;
-  color: var(--primary-bg-color);
+.tintsView .spectrumView .colorsContainer .colorBlock svg {
+  height: 42px;
+  width: 42px;
+}
+.tintsView .spectrumView .colorsContainer .colorBlock svg,
+.tintsView .spectrumView .colorsContainer .colorBlock p {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: transform 300ms, opacity 300ms;
+}
+.tintsView .spectrumView .colorsContainer .colorBlock:hover svg,
+.tintsView .spectrumView .colorsContainer .colorBlock:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tintsView .spectrumView .textContainer {
+  width: 100%;
+  margin-top: 30px;
   background-color: var(--primary-color);
-  width: 250px;
+  border-radius: 12px;
+  padding: 20px;
+  color: var(--primary-text-color);
+  font-family: "Fira Code", monospace;
 }
