@@ -7,7 +7,8 @@ const store = createStore({
     state: {
         savedColor: "",
         colorFormat: "Hex",
-        textFormat: "CSS"
+        textFormat: "CSS",
+        notification: ""
     },
     mutations: {
         saveColor(state, color: string){
@@ -18,6 +19,9 @@ const store = createStore({
         },
         setTextFormat(state, format: string){
             state.textFormat = format
+        },
+        setNotification(state, notificationText: string){
+            state.notification = notificationText
         }
     },
     plugins: [createPersistedState()]

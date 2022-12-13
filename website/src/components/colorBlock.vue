@@ -1,5 +1,5 @@
 <template>
-    <div class="colorBlock" :style="{ backgroundColor: props.color }">
+    <div @click="copyColor()" class="colorBlock" :style="{ backgroundColor: props.color }">
         <svg
             width="32"
             height="32"
@@ -29,6 +29,14 @@
 
 <script lang="ts" setup>
 import { readableColor } from "color2k";
+import { useStore } from "vuex";
 
 const props = defineProps<{ color: string }>();
+const emit = defineEmits(['copyColor'])
+const store = useStore()
+
+function copyColor(){
+    emit('copyColor', props.color, props.color)
+    navigator.clipboard.writeText(props.color);
+}
 </script>

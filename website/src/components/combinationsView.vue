@@ -1,5 +1,5 @@
 <template>
-    <div class="tintsView">
+    <div class="combinationsView">
         <spectrum-view :color-array="complementaryArray" title="Complementary"/>
         <spectrum-view :color-array="complementaryPairArray" title="Split-Complementary"/>
         <spectrum-view :color-array="trioArray" title="Trio"/>

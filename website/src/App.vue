@@ -63,7 +63,7 @@
                     />
                 </svg>
                 <div class="inputItem colorPicker">
-                    <input type="text" v-model="data.color" />
+                    <input type="text" placeholder="Your Color" v-model="data.color" />
                     <div class="colorInput">
                         <input type="color" v-model="data.color" />
                         <svg
@@ -199,7 +199,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, onMounted, onBeforeUnmount } from "vue";
+import { reactive, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { parseToHsla, readableColor } from "color2k";
 import tintsView from "./components/tintsView.vue";
 import combinationsView from "./components/combinationsView.vue";
@@ -216,7 +216,9 @@ const data = reactive({
 onMounted(() => {
     data.textFormat = store.state.textFormat
     data.colorFormat = store.state.colorFormat
+    data.color = store.state.savedColor
 })
+
 
 const validatedColor = computed(() => {
     try {
@@ -233,6 +235,10 @@ const readableTextColor = computed(() => {
         return "#000000";
     }
 });
+
+watch(validatedColor, (color: string) => {
+    store.commit('saveColor', color)
+})
 
 function setColorFormat(format: string) {
     data.colorFormat = format;
