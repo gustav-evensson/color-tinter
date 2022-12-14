@@ -56,55 +56,6 @@ nav .navItems .logo {
 nav .navItems .logo path {
   fill: var(--primary-text-color);
 }
-nav .navItems .colorPicker input[type=text] {
-  height: var(--input-item-height);
-  background-color: transparent;
-  color: var(--primary-text-color);
-  border: none;
-  padding: 20px;
-  outline: none;
-  font-size: 20px;
-  width: 100%;
-}
-nav .navItems .colorPicker .colorInput {
-  width: var(--input-item-height);
-  height: var(--input-item-height);
-  display: grid;
-  grid-template-areas: "stack";
-  place-items: center;
-  position: relative;
-}
-nav .navItems .colorPicker .colorInput input {
-  grid-area: stack;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-nav .navItems .colorPicker .colorInput svg {
-  grid-area: stack;
-  z-index: 2;
-  width: 32px;
-  height: 32px;
-  pointer-events: none;
-}
-nav .navItems .colorPicker .colorInput svg .outline {
-  stroke: var(--secondary-text-color);
-}
-nav .navItems .colorPicker .colorInput svg path:not(.outline) {
-  fill: var(--secondary-text-color);
-}
-nav .navItems .colorPicker .colorInput::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 50%;
-  width: 2px;
-  background-color: var(--secondary-text-color);
-  border-radius: 1px;
-}
 
 main {
   width: 100%;
@@ -114,7 +65,7 @@ main {
 }
 main .topBar {
   width: 100%;
-  padding-block: 60px 40px;
+  padding-block: 60px 34px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -135,6 +86,9 @@ main .topBar .tabs .text .tints {
 }
 main .topBar .tabs .text .combinations {
   width: 210px;
+}
+main .topBar .tabs .text .contrast {
+  width: 150px;
 }
 main .topBar .tabs .text button.active {
   color: var(--primary-text-color);
@@ -157,6 +111,73 @@ main .topBar .tabs .underline .onCombinations {
   width: 210px;
   transform: translateX(100px);
 }
+main .topBar .tabs .underline .onContrast {
+  width: 150px;
+  transform: translateX(310px);
+}
+main .topBar .inputItem {
+  height: var(--input-item-height);
+  background-color: var(--secondary-color);
+  padding: 20px;
+  width: 200px;
+  color: var(--primary-text-color);
+}
+main .topBar .dropDown {
+  outline: none;
+  position: relative;
+  cursor: pointer;
+}
+main .topBar .dropDown svg {
+  transition: transform 300ms;
+}
+main .topBar .dropDown svg path {
+  stroke: var(--primary-text-color);
+}
+main .topBar .dropDown .dropDownOptions {
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(102%);
+  width: 100%;
+  left: 0;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms, transform 300ms;
+}
+main .topBar .dropDown .dropDownOptions button {
+  outline: none;
+  width: 100%;
+  padding: 20px;
+  background-color: transparent;
+  color: inherit;
+  border-radius: 0;
+  text-align: left;
+}
+main .topBar .dropDown .dropDownOptions button:hover,
+main .topBar .dropDown .dropDownOptions button:focus {
+  background-color: var(--secondary-color);
+}
+main .topBar .dropDown:hover svg,
+main .topBar .dropDown:focus-within svg,
+main .topBar .dropDown:focus svg {
+  transform: rotate(180deg);
+}
+main .topBar .dropDown:hover .dropDownOptions,
+main .topBar .dropDown:focus-within .dropDownOptions,
+main .topBar .dropDown:focus .dropDownOptions {
+  transform: translateY(100%);
+  opacity: 1;
+  pointer-events: all;
+}
+main .topBar .tabDropdown {
+  display: none;
+  width: 100%;
+  border: solid 2px var(--secondary-text-color);
+}
 main .topBar .currentColor {
   width: 50%;
   padding: 20px;
@@ -176,64 +197,6 @@ main .topBar .optionsContainer {
 main .topBar .optionsContainer h3 {
   font-weight: 300;
 }
-main .topBar .optionsContainer .inputItem {
-  height: var(--input-item-height);
-  background-color: var(--secondary-color);
-  padding: 20px;
-  width: 200px;
-  color: inherit;
-}
-main .topBar .optionsContainer .dropDown {
-  outline: none;
-  position: relative;
-  cursor: pointer;
-}
-main .topBar .optionsContainer .dropDown svg {
-  transition: transform 300ms;
-}
-main .topBar .optionsContainer .dropDown svg path {
-  stroke: var(--primary-text-color);
-}
-main .topBar .optionsContainer .dropDown .dropDownOptions {
-  z-index: 2;
-  position: absolute;
-  bottom: 0;
-  transform: translateY(102%);
-  width: 100%;
-  left: 0;
-  background-color: var(--primary-color);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 300ms, transform 300ms;
-}
-main .topBar .optionsContainer .dropDown .dropDownOptions button {
-  outline: none;
-  width: 100%;
-  padding: 20px;
-  background-color: transparent;
-  color: inherit;
-  border-radius: 0;
-  text-align: left;
-}
-main .topBar .optionsContainer .dropDown .dropDownOptions button:hover,
-main .topBar .optionsContainer .dropDown .dropDownOptions button:focus {
-  background-color: var(--secondary-color);
-}
-main .topBar .optionsContainer .dropDown:hover svg,
-main .topBar .optionsContainer .dropDown:focus-within svg,
-main .topBar .optionsContainer .dropDown:focus svg {
-  transform: rotate(180deg);
-}
-main .topBar .optionsContainer .dropDown:hover .dropDownOptions,
-main .topBar .optionsContainer .dropDown:focus-within .dropDownOptions,
-main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
-  transform: translateY(100%);
-  opacity: 1;
-  pointer-events: all;
-}
 
 .tintsView,
 .combinationsView {
@@ -245,7 +208,7 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   background-color: var(--secondary-color);
   border-radius: 12px;
   padding: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   position: relative;
 }
 .tintsView .spectrumView .titleBar,
@@ -364,7 +327,7 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   display: grid;
   grid-template-areas: "stack";
   z-index: 8;
@@ -379,7 +342,7 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   color: var(--primary-color);
   border-radius: 12px;
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   height: 75px;
   display: flex;
   justify-content: center;
@@ -392,6 +355,69 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   transform: translateY(0);
 }
 
+.contrastContainer {
+  width: 100%;
+  padding: 30px;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  border-radius: 12px;
+  color: var(--primary-text-color);
+}
+.contrastContainer .inputFields {
+  width: 400px;
+  min-width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.contrastContainer .inputFields p {
+  font-size: 20px;
+}
+.contrastContainer .inputFields .contrastData {
+  width: 100%;
+  padding: 20px;
+  color: #000;
+  border-radius: 12px;
+}
+.contrastContainer .inputFields .contrastData h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+.contrastContainer .inputFields .contrastData h5 {
+  font-size: 24px;
+  font-weight: 400;
+}
+.contrastContainer .showCase {
+  width: 100%;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  padding: 100px 20%;
+  text-align: center;
+}
+.contrastContainer .showCase h3 {
+  font-size: 48px;
+}
+.contrastContainer .showCase h5 {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1590px) {
+  .contrastContainer .showCase h3 {
+    font-size: 32px;
+  }
+  .contrastContainer .showCase h5 {
+    font-size: 18px;
+  }
+}
 @media screen and (max-width: 1200px) {
   .tintsView .spectrumView .colorsContainer {
     flex-direction: column;
@@ -415,7 +441,7 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
     transform: translateY(0);
   }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
   main .topBar {
     flex-direction: column;
     align-items: flex-start;
@@ -423,6 +449,17 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   }
   main .topBar .optionsContainer h3 {
     display: none;
+  }
+  .contrastContainer {
+    flex-direction: column;
+  }
+  .contrastContainer .inputFields {
+    max-width: unset;
+    width: 100%;
+  }
+  .contrastContainer .inputFields .colorPicker {
+    max-width: unset;
+    width: 100%;
   }
 }
 @media screen and (max-width: 700px) {
@@ -447,7 +484,10 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
     transform: translateY(0);
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
+  main .topBar {
+    gap: 20px;
+  }
   main .topBar .optionsContainer {
     flex-direction: column;
     align-items: flex-start;
@@ -455,5 +495,20 @@ main .topBar .optionsContainer .dropDown:focus .dropDownOptions {
   }
   main .topBar .optionsContainer .dropDown {
     width: 100%;
+  }
+  main .topBar .tabs {
+    display: none;
+  }
+  main .topBar .tabDropdown {
+    display: flex;
+  }
+  .contrastContainer .showCase {
+    padding: 50px 10%;
+  }
+  .contrastContainer .showCase h3 {
+    font-size: 24px;
+  }
+  .contrastContainer .showCase h5 {
+    font-size: 18px;
   }
 }

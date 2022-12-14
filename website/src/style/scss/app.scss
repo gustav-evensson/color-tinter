@@ -58,57 +58,6 @@ nav {
                 fill: var(--primary-text-color);
             }
         }
-        .colorPicker {
-            input[type="text"] {
-                height: var(--input-item-height);
-                background-color: transparent;
-                color: var(--primary-text-color);
-                border: none;
-                padding: 20px;
-                outline: none;
-                font-size: 20px;
-                width: 100%;
-            }
-            .colorInput {
-                width: var(--input-item-height);
-                height: var(--input-item-height);
-                display: grid;
-                grid-template-areas: "stack";
-                place-items: center;
-                position: relative;
-                input {
-                    grid-area: stack;
-                    opacity: 0;
-                    width: 100%;
-                    height: 100%;
-                    cursor: pointer;
-                }
-                svg {
-                    grid-area: stack;
-                    z-index: 2;
-                    width: 32px;
-                    height: 32px;
-                    pointer-events: none;
-                    .outline {
-                        stroke: var(--secondary-text-color);
-                    }
-                    path:not(.outline) {
-                        fill: var(--secondary-text-color);
-                    }
-                }
-            }
-            .colorInput::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                height: 50%;
-                width: 2px;
-                background-color: var(--secondary-text-color);
-                border-radius: 1px;
-            }
-        }
     }
 }
 
@@ -121,7 +70,7 @@ main {
     margin: 0 auto;
     .topBar {
         width: 100%;
-        padding-block: 60px 40px;
+        padding-block: 60px 34px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -141,6 +90,9 @@ main {
                 }
                 .combinations {
                     width: 210px;
+                }
+                .contrast {
+                    width: 150px;
                 }
                 button.active {
                     color: var(--primary-text-color);
@@ -163,7 +115,74 @@ main {
                     width: 210px;
                     transform: translateX(100px);
                 }
+                .onContrast {
+                    width: 150px;
+                    transform: translateX(310px);
+                }
             }
+        }
+        .inputItem {
+            height: var(--input-item-height);
+            background-color: var(--secondary-color);
+            padding: 20px;
+            width: 200px;
+            color: var(--primary-text-color);
+        }
+        .dropDown {
+            outline: none;
+            position: relative;
+            cursor: pointer;
+            svg {
+                transition: transform 300ms;
+                path {
+                    stroke: var(--primary-text-color);
+                }
+            }
+            .dropDownOptions {
+                z-index: 3;
+                position: absolute;
+                bottom: 0;
+                transform: translateY(102%);
+                width: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 300ms, transform 300ms;
+                button {
+                    outline: none;
+                    width: 100%;
+                    padding: 20px;
+                    background-color: transparent;
+                    color: inherit;
+                    border-radius: 0;
+                    text-align: left;
+                }
+                button:hover,
+                button:focus {
+                    background-color: var(--secondary-color);
+                }
+            }
+        }
+        .dropDown:hover,
+        .dropDown:focus-within,
+        .dropDown:focus {
+            svg {
+                transform: rotate(180deg);
+            }
+            .dropDownOptions {
+                transform: translateY(100%);
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+        .tabDropdown {
+            display: none;
+            width: 100%;
+            border: solid 2px var(--secondary-text-color);
         }
         .currentColor {
             width: 50%;
@@ -183,64 +202,6 @@ main {
             h3 {
                 font-weight: 300;
             }
-            .inputItem {
-                height: var(--input-item-height);
-                background-color: var(--secondary-color);
-                padding: 20px;
-                width: 200px;
-                color: inherit;
-            }
-            .dropDown {
-                outline: none;
-                position: relative;
-                cursor: pointer;
-                svg {
-                    transition: transform 300ms;
-                    path {
-                        stroke: var(--primary-text-color);
-                    }
-                }
-                .dropDownOptions {
-                    z-index: 2;
-                    position: absolute;
-                    bottom: 0;
-                    transform: translateY(102%);
-                    width: 100%;
-                    left: 0;
-                    background-color: var(--primary-color);
-                    border-radius: 12px;
-                    overflow: hidden;
-                    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
-                    opacity: 0;
-                    pointer-events: none;
-                    transition: opacity 300ms, transform 300ms;
-                    button {
-                        outline: none;
-                        width: 100%;
-                        padding: 20px;
-                        background-color: transparent;
-                        color: inherit;
-                        border-radius: 0;
-                        text-align: left;
-                    }
-                    button:hover,
-                    button:focus {
-                        background-color: var(--secondary-color);
-                    }
-                }
-            }
-            .dropDown:hover,
-            .dropDown:focus-within,
-            .dropDown:focus {
-                svg {
-                    transform: rotate(180deg);
-                }
-                .dropDownOptions {
-                    transform: translateY(100%);
-                    opacity: 1;
-                    pointer-events: all;
-                }
-            }
         }
     }
 }
@@ -257,7 +218,7 @@ main {
         background-color: var(--secondary-color);
         border-radius: 12px;
         padding: 30px;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
         position: relative;
         .titleBar {
             width: 100%;
@@ -366,7 +327,7 @@ main {
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
             display: grid;
             grid-template-areas: "stack";
             z-index: 8;
@@ -379,7 +340,7 @@ main {
                 color: var(--primary-color);
                 border-radius: 12px;
                 width: 100%;
-                max-width: 300px;
+                max-width: 350px;
                 height: 75px;
                 display: flex;
                 justify-content: center;
@@ -394,6 +355,74 @@ main {
     }
 }
 
+//Contrast View Styling 
+
+.contrastContainer{
+    width: 100%;
+    padding: 30px;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    border-radius: 12px;
+    color: var(--primary-text-color);
+    .inputFields{
+        width: 400px;
+        min-width: 300px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        p{
+            font-size: 20px;
+        }
+        .contrastData{
+            width: 100%;
+            padding: 20px;
+            color: #000;
+            border-radius: 12px;
+            h2{
+                font-size: 36px;
+                font-weight: 400;
+            }
+            h5{
+                font-size: 24px;
+                font-weight: 400;
+            }
+        }
+    }
+    .showCase{
+        width: 100%;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+        padding: 100px 20%;
+        text-align: center;
+        h3{
+            font-size: 48px;
+        }
+        h5{
+            font-size: 20px;
+        }
+    }
+}
+@media screen and (max-width: 1590px) {
+    .contrastContainer{
+        .showCase{
+            h3{
+                font-size: 32px;
+            }
+            h5{
+                font-size: 18px;
+            }
+        }
+    }
+}
 @media screen and (max-width: 1200px) {
     .tintsView {
         .spectrumView {
@@ -423,22 +452,33 @@ main {
         }
     }
 }
-@media screen and (max-width: 1000px) {
-    main .topBar{
+@media screen and (max-width: 1150px) {
+    main .topBar {
         flex-direction: column;
         align-items: flex-start;
         gap: 30px;
-        .optionsContainer h3{
+        .optionsContainer h3 {
             display: none;
+        }
+    }
+    .contrastContainer{
+        flex-direction: column;
+        .inputFields{
+            max-width: unset;
+            width: 100%;
+            .colorPicker{
+                max-width: unset;
+                width: 100%;
+            }
         }
     }
 }
 @media screen and (max-width: 700px) {
-    nav{
-        .logo{
+    nav {
+        .logo {
             display: none;
         }
-        .colorPicker{
+        .colorPicker {
             width: 100%;
         }
     }
@@ -461,13 +501,33 @@ main {
         }
     }
 }
-@media screen and (max-width: 500px) {
-    main .topBar .optionsContainer{
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        .dropDown{
+@media screen and (max-width: 550px) {
+    main .topBar {
+        gap: 20px;
+        .optionsContainer {
+            flex-direction: column;
+            align-items: flex-start;
             width: 100%;
+            .dropDown {
+                width: 100%;
+            }
+        }
+        .tabs {
+            display: none;
+        }
+        .tabDropdown {
+            display: flex;
+        }
+    }
+        .contrastContainer{
+        .showCase{
+            padding: 50px 10%;
+            h3{
+                font-size: 24px;
+            }
+            h5{
+                font-size: 18px;
+            }
         }
     }
 }

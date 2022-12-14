@@ -107,37 +107,45 @@
                 <div class="tabs">
                     <div class="text">
                         <button
-                            @click="data.onCombinations = false"
+                            @click="data.tabIndex = 0"
                             :class="{
                                 tints: true,
-                                active: !data.onCombinations,
+                                active: data.tabIndex == 0,
                             }"
                         >
                             Tints
                         </button>
                         <button
-                            @click="data.onCombinations = true"
+                            @click="data.tabIndex = 1"
                             :class="{
                                 combinations: true,
-                                active: data.onCombinations,
+                                active: data.tabIndex == 1,
                             }"
                         >
                             Combinations
+                        </button>
+                        <button
+                            @click="data.tabIndex = 2"
+                            :class="{
+                                contrast: true,
+                                active: data.tabIndex == 2,
+                            }"
+                        >
+                            Contrast
                         </button>
                     </div>
                     <div class="underline">
                         <div
                             :class="{
                                 indicator: true,
-                                onCombinations: data.onCombinations,
+                                onCombinations: data.tabIndex == 1,
+                                onContrast: data.tabIndex == 2
                             }"
                         ></div>
                     </div>
                 </div>
-                <div class="optionsContainer">
-                    <h3>Copy as:</h3>
-                    <div tabindex="0" class="inputItem dropDown">
-                        <p>{{ data.textFormat }}</p>
+                <div tabindex="0" class="inputItem dropDown tabDropdown">
+                        <p>{{ data.tabText }}</p>
                         <svg
                             width="32"
                             height="32"
@@ -153,64 +161,93 @@
                             />
                         </svg>
                         <div class="dropDownOptions">
-                            <button @click="setTextFormat('CSS')">CSS</button>
-                            <button @click="setTextFormat('SCSS')">SCSS</button>
-                            <button @click="setTextFormat('Array')">
-                                Array
-                            </button>
+                            <button @click="setTab(0,'Tints')">Tints</button>
+                            <button @click="setTab(1,'Combinations')">Combinations</button>
+                            <button @click="setTab(2,'Contrast')">Contrast</button>
                         </div>
                     </div>
-                    <div tabindex="0" class="inputItem dropDown">
-                        <p>{{ data.colorFormat }}</p>
-                        <svg
-                            width="32"
-                            height="32"
-                            viewBox="0 0 32 32"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M26 12L16 22L6 12"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                        <div class="dropDownOptions">
-                            <button @click="setColorFormat('Hex')">Hex</button>
-                            <button @click="setColorFormat('Rgba')">
-                                Rgba
-                            </button>
-                            <button @click="setColorFormat('Hsla')">
-                                Hsla
-                            </button>
+                <Transition name="drop-fade">
+                    <div v-if="data.tabIndex != 2" class="optionsContainer">
+                        <h3>Copy as:</h3>
+                        <div tabindex="0" class="inputItem dropDown">
+                            <p>{{ data.textFormat }}</p>
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M26 12L16 22L6 12"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <div class="dropDownOptions">
+                                <button @click="setTextFormat('CSS')">CSS</button>
+                                <button @click="setTextFormat('SCSS')">SCSS</button>
+                                <button @click="setTextFormat('Array')">
+                                    Array
+                                </button>
+                            </div>
+                        </div>
+                        <div tabindex="0" class="inputItem dropDown">
+                            <p>{{ data.colorFormat }}</p>
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M26 12L16 22L6 12"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <div class="dropDownOptions">
+                                <button @click="setColorFormat('Hex')">Hex</button>
+                                <button @click="setColorFormat('Rgba')">
+                                    Rgba
+                                </button>
+                                <button @click="setColorFormat('Hsla')">
+                                    Hsla
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Transition>
             </div>
-            <tints-view v-if="!data.onCombinations" :color="validatedColor" :key="validatedColor" />
+            <tints-view v-if="data.tabIndex == 0" :color="validatedColor" :key="validatedColor" />
             <combinations-view
-                v-if="data.onCombinations"
+                v-if="data.tabIndex == 1"
                 :color="validatedColor"
                 :key="validatedColor"
             />
+            <contrast-view :color="validatedColor" :key="validatedColor"/>
         </main>
     </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, onMounted, onBeforeUnmount, watch } from "vue";
+import { reactive, computed, onMounted, onBeforeUnmount, watch, Transition } from "vue";
 import { parseToHsla, readableColor } from "color2k";
 import tintsView from "./components/tintsView.vue";
 import combinationsView from "./components/combinationsView.vue";
+import contrastView from "./components/contrastView.vue";
 import { useStore } from "vuex";
 
 const store = useStore()
 const data = reactive({
     color: "#8001dd",
-    onCombinations: false,
+    tabIndex: 0,
     textFormat: "CSS",
     colorFormat: "Hex",
+    tabText: 'Tints'
 });
 
 onMounted(() => {
@@ -240,6 +277,11 @@ watch(validatedColor, (color: string) => {
     store.commit('saveColor', color)
 })
 
+function setTab(index: number, text: string){
+    data.tabIndex = index;
+    data.tabText = text;
+}
+
 function setColorFormat(format: string) {
     data.colorFormat = format;
     store.commit("setColorFormat", format);
@@ -251,26 +293,15 @@ function setTextFormat(format: string) {
 </script>
 
 <style>
-.tints-enter-active,
-.tints-leave-active {
-    transition: opacity 0.5s, transform 0.5s;
+.drop-fade-enter-active,
+.drop-fade-leave-active {
+    opacity: 1;
+    transition: opacity 0.5s;
 }
 
-.tints-enter-from,
-.tints-leave-to {
+.drop-fade-enter-from,
+.drop-fade-leave-to {
     opacity: 0;
-    transform: translateX(-50px);
-    transition: none;
-}
-.combs-enter-active,
-.combs-leave-active {
-    transition: opacity 0.5s, transform 0.5s;
-}
-
-.combs-enter-from,
-.combs-leave-to {
-    opacity: 0;
-    transform: translateX(50px);
     transition: none;
 }
 </style>
