@@ -1,16 +1,6 @@
 <template>
     <div class="app">
-        <div class="currentColor">
-            <div class="currentColorBg"></div>
-            <div
-                class="topPart"
-                :style="{ backgroundColor: validatedColor }"
-            ></div>
-            <div
-                class="bottomPart"
-                :style="{ backgroundColor: validatedColor }"
-            ></div>
-        </div>
+        <div class="currentColor" :style="{ backgroundColor: validatedColor }"></div>
         <nav>
             <div class="navItems">
                 <svg
@@ -144,7 +134,7 @@
                         ></div>
                     </div>
                 </div>
-                <div tabindex="0" class="inputItem dropDown tabDropdown">
+                <div data-show-options="false" tabindex="0" @click="openDropdown('tabDropdown')" id="tabDropdown" class="inputItem dropDown tabDropdown">
                         <p>{{ data.tabText }}</p>
                         <svg
                             width="32"
@@ -169,7 +159,7 @@
                 <Transition name="drop-fade">
                     <div v-if="data.tabIndex != 2" class="optionsContainer">
                         <h3>Copy as:</h3>
-                        <div tabindex="0" class="inputItem dropDown">
+                        <div data-show-options="false" @click="openDropdown('colorFormat')" id="colorFormat" tabindex="0" class="inputItem dropDown">
                             <p>{{ data.textFormat }}</p>
                             <svg
                                 width="32"
@@ -188,12 +178,10 @@
                             <div class="dropDownOptions">
                                 <button @click="setTextFormat('CSS')">CSS</button>
                                 <button @click="setTextFormat('SCSS')">SCSS</button>
-                                <button @click="setTextFormat('Array')">
-                                    Array
-                                </button>
+                                <button @click="setTextFormat('Array')">Array</button>
                             </div>
                         </div>
-                        <div tabindex="0" class="inputItem dropDown">
+                        <div data-show-options="false" @click="openDropdown('textFormat')" id="textFormat" tabindex="0" class="inputItem dropDown">
                             <p>{{ data.colorFormat }}</p>
                             <svg
                                 width="32"
@@ -228,7 +216,7 @@
                 :color="validatedColor"
                 :key="validatedColor"
             />
-            <contrast-view :color="validatedColor" :key="validatedColor"/>
+            <contrast-view v-if="data.tabIndex == 2" :color="validatedColor" :key="validatedColor"/>
         </main>
     </div>
 </template>
@@ -289,6 +277,17 @@ function setColorFormat(format: string) {
 function setTextFormat(format: string) {
     data.textFormat = format;
     store.commit("setTextFormat", format);
+}
+
+function openDropdown(elementID: string){
+    const element = document.querySelector(`#${elementID}`)
+    if(element.dataset.showOptions == "false"){
+        element.dataset.showOptions = "true"
+    }
+    else{
+        element.dataset.showOptions = "false"
+    }
+    console.log(element.dataset.showOptions, typeof(element.dataset.showOptions))
 }
 </script>
 

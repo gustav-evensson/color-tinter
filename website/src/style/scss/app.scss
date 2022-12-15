@@ -10,32 +10,13 @@
 .currentColor {
     width: 100%;
     height: 100px;
-    top: 50px;
+    top: 20px;
     left: 0;
     position: fixed;
     z-index: 4;
-    div {
-        width: 100%;
-        height: 70px;
-    }
-    .topPart {
-        position: absolute;
-        top: -40px;
-        height: 70%;
-        left: 0;
-        filter: blur(15px);
-    }
-    .currentColorBg {
-        position: absolute;
-        top: -50px;
-        left: 0;
-        background-color: var(--secondary-color);
-        opacity: 1;
-        height: 100%;
-    }
 }
 nav {
-    background-color: var(--secondary-color);
+    background-color: var(--transparent-nav-color);
     position: fixed;
     top: 0;
     left: 0;
@@ -43,7 +24,7 @@ nav {
     height: 100px;
     padding: 0 5%;
     z-index: 5;
-    opacity: 0.9;
+    backdrop-filter: blur(30px);
     .navItems {
         max-width: 1800px;
         margin: 0 auto;
@@ -70,7 +51,7 @@ main {
     margin: 0 auto;
     .topBar {
         width: 100%;
-        padding-block: 60px 34px;
+        padding-block: 60px 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -129,6 +110,7 @@ main {
             color: var(--primary-text-color);
         }
         .dropDown {
+            border: solid 2px var(--secondary-color);
             outline: none;
             position: relative;
             cursor: pointer;
@@ -167,9 +149,10 @@ main {
                 }
             }
         }
-        .dropDown:hover,
-        .dropDown:focus-within,
-        .dropDown:focus {
+        .dropDown:hover {
+            border: solid 2px var(--secondary-text-color);
+        }
+        .dropDown[data-show-options="true"]{
             svg {
                 transform: rotate(180deg);
             }
@@ -302,7 +285,9 @@ main {
                 top: 20px;
                 right: 20px;
                 background-color: transparent;
-                padding: 0;
+                padding: 5px;
+                border-radius: 50%;
+                transition: background-color 300ms;
                 svg {
                     width: 42px;
                     height: 42px;
@@ -314,6 +299,7 @@ main {
             }
             .copyButton:hover,
             .colorBlock:focus {
+                background-color: var(--transparent-nav-color);
                 svg path {
                     stroke: var(--primary-text-color);
                 }
@@ -482,6 +468,11 @@ main {
             width: 100%;
         }
     }
+    main{
+        .topBar{
+            padding-block: 50px 30px;
+        }
+    }
     .combinationsView {
         .spectrumView {
             .colorsContainer {
@@ -500,7 +491,20 @@ main {
             }
         }
     }
+    .combinationsView, .tintsView{
+        .spectrumView{
+            padding: 20px;
+            .colorsContainer, .textContainer{
+                margin-top: 20px;
+            }
+        }
+    }
+    .contrastContainer{
+        padding: 20px;
+        gap: 20px;
+    }
 }
+
 @media screen and (max-width: 550px) {
     main .topBar {
         gap: 20px;

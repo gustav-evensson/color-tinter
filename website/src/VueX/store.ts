@@ -5,7 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 
 const store = createStore({
     state: {
-        savedColor: "",
+        savedColor: "#8001dd",
         colorFormat: "Hex",
         textFormat: "CSS",
         notification: ""
