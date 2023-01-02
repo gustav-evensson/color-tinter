@@ -1,1 +1,1 @@
-![Color Tinter](https://color-tinter.web.app/)
+[Color Tinter](https://color-tinter.web.app/)
