@@ -1,5 +1,5 @@
 ## About the project
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/website/src/assets/Color%20Tinter.png?raw=true)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/website/src/assets/Color%20Tinter.png?raw=true)
 
 ### Why did i build it?
 [Color Tinter](https://color-tinter.web.app/) is a project i started because i didnt really find a color "picker" that returned an entire spectrum of colors in the way that Color Tinter does.
@@ -16,13 +16,13 @@ The "tints" of a color includes changes in mainly the lightness and saturation o
 
 1. The Darkness spectrum
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/Darkness.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/Darkness.png)
 
 This returns 11 variations of the color where the first one is the inputed color and the last one is black. In between thos two the color gradually gets darker.
 
 2. The Lightness spectrum
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/Lightness.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/Lightness.png)
 
 This return similarly to the darkness spectrum 11 colors but instead of going from the main color to black this one goes from main to white with the colors in between gradually getting lighter. 
 
@@ -30,19 +30,19 @@ Both if these to are creatad by onlu changing the lightness variable of the HSLA
 
 3. The Diagonal spectrum
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/Diagonal.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/Diagonal.png)
 
 This spectrum takes use of both lightness and saturation when it is being created. It returns 11 colors where th first one has its lightness and saturation set to 0%, the last color has the lightness and saturation set to 100% and in between we increse both the lightness and saturation gradually to achive a in my opinion quiet usefull spectrum.
 
 4. The saturation spectrum
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/Saturation.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/Saturation.png)
 
 This is very similar to the ligntess and darkness spectrum where the main color is the first one in this spectrum and then we gradually decrese the level of saturation until we reach 0%. This spectrum only goes one way due to the input rate of already desaturated colors being very low.
 
 5. The opacity/alpha spectrum
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/Opacity.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/Opacity.png)
 
 This returns 10 colors where the first color has an opacity or alpha value of 1 and the last one has 0.1, the steps gradually then decreses with 0.1 for every color in bewtween. 
 
@@ -82,7 +82,7 @@ Color Tinter also has an API with similar but limited functions. You can make a 
 
 You can alos optionally add another keyword of the desired color format. (hex, rgba or hsla)
 
-![](https://github.com/gustav-evensson/color-tinter-public/blob/main/readmeAssets/api%20request%20example.png)
+![](https://github.com/gustav-evensson/color-tinter/blob/main/readmeAssets/api%20request%20example.png)
 
 ## Tools
 
